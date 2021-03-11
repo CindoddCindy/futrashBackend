@@ -62,15 +62,15 @@ public class Item extends  AuditModel{
     @OneToMany(targetEntity = User.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<User> userList;
 
+    @OneToMany(targetEntity = Chart.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Chart> charts;
+
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Order> orders;
 
 
-    @OneToMany(mappedBy = "items", cascade = CascadeType.ALL)
-    private Set<Chart> charts = new HashSet<>();
 
 
-
-    @OneToMany(mappedBy = "items", cascade = CascadeType.ALL)
-    private Set<Order> orders = new HashSet<>();
 
 
     public Item() {
@@ -82,7 +82,15 @@ public class Item extends  AuditModel{
         this.data = data;
     }
 
-    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan, @NotNull String kandungan_kimia, List<User> userList) {
+    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan,
+                @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena,
+                @NotNull String berat_makanan, String nama_toko,
+                @NotNull String nama_penjual,
+                @NotNull String lokasi_makanan,
+                @NotNull String harga_makanan,
+                String saran_penggunaan,
+                @NotNull String kandungan_kimia,
+                List<User> userList) {
         this.name = name;
         this.type = type;
         this.data = data;
@@ -101,7 +109,13 @@ public class Item extends  AuditModel{
 
 
 
-    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan, @NotNull String kandungan_kimia) {
+    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak,
+                @NotNull String dijual_karena,
+                @NotNull String berat_makanan, String nama_toko,
+                @NotNull String nama_penjual,
+                @NotNull String lokasi_makanan,
+                @NotNull String harga_makanan,
+                String saran_penggunaan, @NotNull String kandungan_kimia) {
         this.name = name;
         this.type = type;
         this.data = data;
@@ -115,6 +129,51 @@ public class Item extends  AuditModel{
         this.harga_makanan = harga_makanan;
         this.saran_penggunaan = saran_penggunaan;
         this.kandungan_kimia = kandungan_kimia;
+    }
+
+    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan,
+                @NotNull String tidak_dikonsumsi_sejak,
+                @NotNull String dijual_karena,
+                @NotNull String berat_makanan,
+               @NotNull String nama_toko,
+                @NotNull String nama_penjual,
+                @NotNull String lokasi_makanan, @NotNull String harga_makanan,
+                String saran_penggunaan, @NotNull String kandungan_kimia, List<Chart> charts) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+        this.jenis_makanan = jenis_makanan;
+        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
+        this.dijual_karena = dijual_karena;
+        this.berat_makanan = berat_makanan;
+        this.nama_toko = nama_toko;
+        this.nama_penjual = nama_penjual;
+        this.lokasi_makanan = lokasi_makanan;
+        this.harga_makanan = harga_makanan;
+        this.saran_penggunaan = saran_penggunaan;
+        this.kandungan_kimia = kandungan_kimia;
+        this.charts = charts;
+    }
+
+    public Item(String name, String type, byte[] data, @NotNull
+            String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak,
+                @NotNull String dijual_karena, @NotNull String berat_makanan,
+                String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan,
+                @NotNull String kandungan_kimia, List<Order> orders) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+        this.jenis_makanan = jenis_makanan;
+        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
+        this.dijual_karena = dijual_karena;
+        this.berat_makanan = berat_makanan;
+        this.nama_toko = nama_toko;
+        this.nama_penjual = nama_penjual;
+        this.lokasi_makanan = lokasi_makanan;
+        this.harga_makanan = harga_makanan;
+        this.saran_penggunaan = saran_penggunaan;
+        this.kandungan_kimia = kandungan_kimia;
+        this.orders = orders;
     }
 
     public void setId(String id) {
@@ -240,29 +299,19 @@ public class Item extends  AuditModel{
     }
 
 
-    public Set<Chart> getCharts() {
+    public List<Chart> getCharts() {
         return charts;
     }
 
-    public void setCharts(Set<Chart> charts) {
+    public void setCharts(List<Chart> charts) {
         this.charts = charts;
-
-        for(Chart c : charts) {
-            c.setItem(this);
-        }
     }
 
-
-
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
-
-        for(Order o : orders) {
-            o.setItem(this);
-        }
     }
 }
