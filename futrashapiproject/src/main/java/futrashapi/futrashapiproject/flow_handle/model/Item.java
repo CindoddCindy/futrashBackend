@@ -200,7 +200,7 @@ public class Item extends  AuditModel{
     public void setKandungan_kimia(String kandungan_kimia) {
         this.kandungan_kimia = kandungan_kimia;
     }
-/*
+
     public List<User> getUserList() {
         return userList;
     }
@@ -209,7 +209,7 @@ public class Item extends  AuditModel{
         this.userList = userList;
     }
 
- */
+
 
     public String getId() {
         return id;
@@ -238,7 +238,7 @@ public class Item extends  AuditModel{
     public void setData(byte[] data) {
         this.data = data;
     }
-/*
+
 
     public Set<Chart> getCharts() {
         return charts;
@@ -252,7 +252,7 @@ public class Item extends  AuditModel{
         }
     }
 
- */
+
 
     public Set<Order> getOrders() {
         return orders;
