@@ -51,9 +51,6 @@ public class OrderReview extends AuditModel{
 
  */
 
-    @OneToMany(mappedBy = "order_reviews", cascade = CascadeType.ALL)
-    private Set<Order> orderSet = new HashSet<>();
-
 
     public OrderReview() {
     }
@@ -106,17 +103,6 @@ public class OrderReview extends AuditModel{
         this.review_customer = review_customer;
     }
 
-    public Set<Order> getOrderSet() {
-        return orderSet;
-    }
-
-    public void setOrderSet(Set<Order> orderSet) {
-        this.orderSet = orderSet;
-
-        for(Order o : orderSet) {
-            o.setOrderReview(this);
-        }
-    }
 
 
 }

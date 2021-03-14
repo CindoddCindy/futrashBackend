@@ -63,16 +63,6 @@ public class Item extends  AuditModel{
     @OneToMany(targetEntity = User.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<User> userList;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "chart_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Chart chart;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Order order;
-
 
 
 
@@ -263,19 +253,4 @@ public class Item extends  AuditModel{
     }
 
 
-    public Chart getChart() {
-        return chart;
-    }
-
-    public void setChart(Chart chart) {
-        this.chart = chart;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }

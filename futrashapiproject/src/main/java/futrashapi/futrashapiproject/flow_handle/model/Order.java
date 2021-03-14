@@ -45,6 +45,10 @@ public class Order {
     @Nullable
     private String shipping_type;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Item item;
 
 
 
@@ -63,15 +67,6 @@ public class Order {
         this.shipping_type = shipping_type;
     }
 
-
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private Set<Item> itemSet = new HashSet<>();
-
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "orderReview_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private OrderReview orderReview;
 
 
 
@@ -157,23 +152,11 @@ public class Order {
         this.shipping_type = shipping_type;
     }
 
-    public Set<Item> getItemSet() {
-        return itemSet;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItemSet(Set<Item> itemSet) {
-        this.itemSet = itemSet;
-
-        for(Item i : itemSet) {
-            i.setOrder(this);
-        }
-    }
-
-    public OrderReview getOrderReview() {
-        return orderReview;
-    }
-
-    public void setOrderReview(OrderReview orderReview) {
-        this.orderReview = orderReview;
+    public void setItem(Item item) {
+        this.item = item;
     }
 }
