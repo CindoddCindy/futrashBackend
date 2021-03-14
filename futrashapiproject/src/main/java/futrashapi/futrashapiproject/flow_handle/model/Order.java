@@ -68,6 +68,14 @@ public class Order {
     private Set<Item> itemSet = new HashSet<>();
 
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "orderReview_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private OrderReview orderReview;
+
+
+
+
 
     public Long getId() {
         return id;
@@ -161,5 +169,11 @@ public class Order {
         }
     }
 
+    public OrderReview getOrderReview() {
+        return orderReview;
+    }
 
+    public void setOrderReview(OrderReview orderReview) {
+        this.orderReview = orderReview;
+    }
 }

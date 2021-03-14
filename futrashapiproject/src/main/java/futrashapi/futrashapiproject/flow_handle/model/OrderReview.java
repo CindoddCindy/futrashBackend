@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "order_reviews")
 public class OrderReview extends AuditModel{
 
     @Id
@@ -47,6 +50,11 @@ public class OrderReview extends AuditModel{
 
 
  */
+
+    @OneToMany(mappedBy = "order_reviews", cascade = CascadeType.ALL)
+    private Set<Order> orderSet = new HashSet<>();
+
+
     public OrderReview() {
     }
 
@@ -96,6 +104,18 @@ public class OrderReview extends AuditModel{
 
     public void setReview_customer(String review_customer) {
         this.review_customer = review_customer;
+    }
+
+    public Set<Order> getOrderSet() {
+        return orderSet;
+    }
+
+    public void setOrderSet(Set<Order> orderSet) {
+        this.orderSet = orderSet;
+
+        for(Order o : orderSet) {
+            o.setOrderReview(this);
+        }
     }
 
 
