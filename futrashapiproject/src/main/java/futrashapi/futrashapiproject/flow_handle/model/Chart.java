@@ -52,7 +52,7 @@ public class Chart extends AuditModel{
 
 
     @OneToMany(mappedBy = "charts", cascade = CascadeType.ALL)
-    private Set<Item> itemSet = new HashSet<>();
+    private Set<Item>items = new HashSet<>();
 
 
     public Chart() {
@@ -169,14 +169,14 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public Set<Item> getItemSet() {
-        return itemSet;
+    public Set<Item> getItems() {
+        return items;
     }
 
-    public void setItemSet(Set<Item> itemSet) {
-        this.itemSet = itemSet;
+    public void setItemSet(Set<Item> items) {
+        this.items = items;
 
-        for(Item i : itemSet) {
+        for(Item i : items) {
             i.setChart(this);
         }
     }
