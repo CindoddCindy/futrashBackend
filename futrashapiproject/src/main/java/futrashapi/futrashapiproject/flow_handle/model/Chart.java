@@ -5,7 +5,9 @@ import com.sun.istack.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "charts")
@@ -48,11 +50,9 @@ public class Chart extends AuditModel{
     @NotNull
     private String kandungan_kimia;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Item item;
 
+    @OneToMany(mappedBy = "charts", cascade = CascadeType.ALL)
+    private Set<Item> itemSet = new HashSet<>();
 
 
     public Chart() {
@@ -72,20 +72,6 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public Chart(@NotNull String image_url, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan, @NotNull String kandungan_kimia, Item item) {
-        this.image_url = image_url;
-        this.jenis_makanan = jenis_makanan;
-        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
-        this.dijual_karena = dijual_karena;
-        this.berat_makanan = berat_makanan;
-        this.nama_toko = nama_toko;
-        this.nama_penjual = nama_penjual;
-        this.lokasi_makanan = lokasi_makanan;
-        this.harga_makanan = harga_makanan;
-        this.saran_penggunaan = saran_penggunaan;
-        this.kandungan_kimia = kandungan_kimia;
-        this.item = item;
-    }
 
     public Long getId() {
         return id;
@@ -183,12 +169,16 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public Item getItem() {
-        return item;
+    public Set<Item> getItemSet() {
+        return itemSet;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemSet(Set<Item> itemSet) {
+        this.itemSet = itemSet;
+
+        for(Item i : itemSet) {
+            i.setChart(this);
+        }
     }
 
 

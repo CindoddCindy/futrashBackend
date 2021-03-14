@@ -3,6 +3,7 @@ package futrashapi.futrashapiproject.flow_handle.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.Nullable;
 import futrashapi.futrashapiproject.auth.model.User;
 import org.hibernate.annotations.GenericGenerator;
@@ -62,11 +63,15 @@ public class Item extends  AuditModel{
     @OneToMany(targetEntity = User.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<User> userList;
 
-    @OneToMany(targetEntity = Chart.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Chart> charts;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "chart_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Chart chart;
 
-    @OneToMany(targetEntity = Order.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Order> orders;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Order order;
 
 
 
@@ -131,50 +136,9 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan,
-                @NotNull String tidak_dikonsumsi_sejak,
-                @NotNull String dijual_karena,
-                @NotNull String berat_makanan,
-               @NotNull String nama_toko,
-                @NotNull String nama_penjual,
-                @NotNull String lokasi_makanan, @NotNull String harga_makanan,
-                String saran_penggunaan, @NotNull String kandungan_kimia, List<Chart> charts) {
-        this.name = name;
-        this.type = type;
-        this.data = data;
-        this.jenis_makanan = jenis_makanan;
-        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
-        this.dijual_karena = dijual_karena;
-        this.berat_makanan = berat_makanan;
-        this.nama_toko = nama_toko;
-        this.nama_penjual = nama_penjual;
-        this.lokasi_makanan = lokasi_makanan;
-        this.harga_makanan = harga_makanan;
-        this.saran_penggunaan = saran_penggunaan;
-        this.kandungan_kimia = kandungan_kimia;
-        this.charts = charts;
-    }
 
-    public Item(String name, String type, byte[] data, @NotNull
-            String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak,
-                @NotNull String dijual_karena, @NotNull String berat_makanan,
-                String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan,
-                @NotNull String kandungan_kimia, List<Order> orders) {
-        this.name = name;
-        this.type = type;
-        this.data = data;
-        this.jenis_makanan = jenis_makanan;
-        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
-        this.dijual_karena = dijual_karena;
-        this.berat_makanan = berat_makanan;
-        this.nama_toko = nama_toko;
-        this.nama_penjual = nama_penjual;
-        this.lokasi_makanan = lokasi_makanan;
-        this.harga_makanan = harga_makanan;
-        this.saran_penggunaan = saran_penggunaan;
-        this.kandungan_kimia = kandungan_kimia;
-        this.orders = orders;
-    }
+
+
 
     public void setId(String id) {
         this.id = id;
@@ -299,19 +263,19 @@ public class Item extends  AuditModel{
     }
 
 
-    public List<Chart> getCharts() {
-        return charts;
+    public Chart getChart() {
+        return chart;
     }
 
-    public void setCharts(List<Chart> charts) {
-        this.charts = charts;
+    public void setChart(Chart chart) {
+        this.chart = chart;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

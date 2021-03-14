@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "order_reviews")
 public class OrderReview extends AuditModel{
 
     @Id
@@ -28,10 +27,6 @@ public class OrderReview extends AuditModel{
     @NotNull
     private String review_customer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Order order;
 
     public OrderReview(@NotNull String mitra_name, @NotNull String customer_name, @NotNull String food_name, @NotNull String food_location, @NotNull String review_customer) {
         this.mitra_name = mitra_name;
@@ -40,7 +35,7 @@ public class OrderReview extends AuditModel{
         this.food_location = food_location;
         this.review_customer = review_customer;
     }
-
+/*
     public OrderReview(@NotNull String mitra_name, @NotNull String customer_name, @NotNull String food_name, @NotNull String food_location, @NotNull String review_customer, Order order) {
         this.mitra_name = mitra_name;
         this.customer_name = customer_name;
@@ -50,6 +45,8 @@ public class OrderReview extends AuditModel{
         this.order = order;
     }
 
+
+ */
     public OrderReview() {
     }
 
@@ -101,11 +98,5 @@ public class OrderReview extends AuditModel{
         this.review_customer = review_customer;
     }
 
-    public Order getOrder() {
-        return order;
-    }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }

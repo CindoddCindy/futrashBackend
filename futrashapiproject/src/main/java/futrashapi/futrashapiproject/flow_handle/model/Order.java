@@ -45,14 +45,8 @@ public class Order {
     @Nullable
     private String shipping_type;
 
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private Set<OrderReview> orderReviews = new HashSet<>();
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Item item;
 
     public Order() {
     }
@@ -69,18 +63,11 @@ public class Order {
         this.shipping_type = shipping_type;
     }
 
-    public Order(@NotNull String image_url, @NotNull String food_name, @NotNull String mitra_name, @NotNull String food_location, @NotNull String food_price, @NotNull String customer_name, String customer_location, String customer_phone, String shipping_type, Item item) {
-        this.image_url = image_url;
-        this.food_name = food_name;
-        this.mitra_name = mitra_name;
-        this.food_location = food_location;
-        this.food_price = food_price;
-        this.customer_name = customer_name;
-        this.customer_location = customer_location;
-        this.customer_phone = customer_phone;
-        this.shipping_type = shipping_type;
-        this.item = item;
-    }
+
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    private Set<Item> itemSet = new HashSet<>();
+
+
 
     public Long getId() {
         return id;
@@ -162,23 +149,17 @@ public class Order {
         this.shipping_type = shipping_type;
     }
 
-    public Item getItem() {
-        return item;
+    public Set<Item> getItemSet() {
+        return itemSet;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
+    public void setItemSet(Set<Item> itemSet) {
+        this.itemSet = itemSet;
 
-    public Set<OrderReview> getOrderReviews() {
-        return orderReviews;
-    }
-
-    public void setOrderReviews(Set<OrderReview> orderReviews) {
-        this.orderReviews = orderReviews;
-
-        for(OrderReview o : orderReviews) {
-            o.setOrder(this);
+        for(Item i : itemSet) {
+            i.setOrder(this);
         }
     }
+
+
 }
