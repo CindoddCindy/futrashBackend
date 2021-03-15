@@ -51,10 +51,10 @@ public class Chart extends AuditModel{
     private String kandungan_kimia;
 
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Item item;
+    @OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "charts_id")
+    private List<Item> items;
+
 
 
     public Chart() {
@@ -171,11 +171,11 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public Item getItem() {
-        return item;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

@@ -4,6 +4,7 @@ package futrashapi.futrashapiproject.flow_handle.controller;
 import futrashapi.futrashapiproject.flow_handle.model.Chart;
 import futrashapi.futrashapiproject.flow_handle.repository.ChartRepository;
 import futrashapi.futrashapiproject.flow_handle.repository.ItemRepository;
+import futrashapi.futrashapiproject.flow_handle.services.ChartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,67 +14,38 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/charts")
 public class ChartController {
 
-    private final ChartRepository chartRepository;
-    private final ItemRepository itemRepository;
+    private ChartService chartService;
+    private ChartRepository chartRepository;
 
-    @Autowired
-    public ChartController(ChartRepository chartRepository, ItemRepository itemRepository) {
+    public ChartController(ChartService chartService, ChartRepository chartRepository) {
+        this.chartService = chartService;
         this.chartRepository = chartRepository;
-        this.itemRepository = itemRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<Chart> create(@Valid @RequestBody Chart chart) {
-        Chart savedChart = chartRepository.save(chart);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedChart.getId()).toUri();
-
-        return ResponseEntity.created(location).body(savedChart);
+    @PostMapping("/charts/create")
+    public ResponseEntity<Object> createChart(@RequestBody Chart chart) {
+        return  chartService.addChart(chart);
+    }
+    @DeleteMapping("/charts/delete/{id}")
+    public ResponseEntity<Object> deleteCharts(@PathVariable Long id) {
+        return chartService.deleteChart(id);
+    }
+    @GetMapping("/charts/details/{id}")
+    public Chart getChart(@PathVariable Long id) {
+        if(chartRepository.findById(id).isPresent())
+            return chartRepository.findById(id).get();
+        else return null;
+    }
+    @GetMapping("/charts/all")
+    public List<Chart> getCharts() {
+        return chartRepository.findAll();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Chart> update(@PathVariable Long id, @Valid @RequestBody Chart chart) {
-        Optional<Chart> optionalLibrary = chartRepository.findById(id);
-        if (!optionalLibrary.isPresent()) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
 
-        chart.setId(optionalLibrary.get().getId());
-        chartRepository.save(chart);
-
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Chart> delete(@PathVariable Long id) {
-        Optional<Chart> optionalLibrary = chartRepository.findById(id);
-        if (!optionalLibrary.isPresent()) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-
-        chartRepository.delete(optionalLibrary.get());
-
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Chart> getById(@PathVariable Long id) {
-        Optional<Chart> optionalLibrary = chartRepository.findById(id);
-        if (!optionalLibrary.isPresent()) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-
-        return ResponseEntity.ok(optionalLibrary.get());
-    }
-
-    @GetMapping
-    public ResponseEntity<Page<Chart>> getAll(Pageable pageable) {
-        return ResponseEntity.ok(chartRepository.findAll(pageable));
-    }
 }

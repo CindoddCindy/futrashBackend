@@ -6,6 +6,7 @@ import com.sun.istack.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -45,11 +46,9 @@ public class Order {
     @Nullable
     private String shipping_type;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Item item;
-
+    @OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "orders_id")
+    private List<Item> itemList;
 
 
     public Order() {
@@ -152,11 +151,11 @@ public class Order {
         this.shipping_type = shipping_type;
     }
 
-    public Item getItem() {
-        return item;
+    public List<Item> getItemList() {
+        return itemList;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
     }
 }

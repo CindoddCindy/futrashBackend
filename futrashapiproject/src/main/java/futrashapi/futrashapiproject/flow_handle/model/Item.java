@@ -3,6 +3,7 @@ package futrashapi.futrashapiproject.flow_handle.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.Nullable;
 import futrashapi.futrashapiproject.auth.model.User;
@@ -62,6 +63,16 @@ public class Item extends  AuditModel{
 
     @OneToMany(targetEntity = User.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<User> userList;
+
+
+    @ManyToOne
+    @JsonIgnore
+    private Chart chart;
+
+
+    @ManyToOne
+    @JsonIgnore
+    private Order order;
 
 
 
@@ -252,5 +263,19 @@ public class Item extends  AuditModel{
         this.data = data;
     }
 
+    public Chart getChart() {
+        return chart;
+    }
 
+    public void setChart(Chart chart) {
+        this.chart = chart;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
