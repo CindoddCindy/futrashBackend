@@ -1,5 +1,6 @@
 package futrashapi.futrashapiproject.flow_handle.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.Nullable;
 
@@ -49,6 +50,10 @@ public class Order {
     @OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id")
     private List<Item> itemList;
+
+    @ManyToOne
+    @JsonIgnore
+    private OrderReview orderReview;
 
 
     public Order() {
@@ -157,5 +162,13 @@ public class Order {
 
     public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
+    }
+
+    public OrderReview getOrderReview() {
+        return orderReview;
+    }
+
+    public void setOrderReview(OrderReview orderReview) {
+        this.orderReview = orderReview;
     }
 }

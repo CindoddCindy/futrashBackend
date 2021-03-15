@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,6 +31,10 @@ public class OrderReview extends AuditModel{
     @NotNull
     private String review_customer;
 
+
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "review_id")
+    private List<Order> orderList;
 
     public OrderReview(@NotNull String mitra_name, @NotNull String customer_name, @NotNull String food_name, @NotNull String food_location, @NotNull String review_customer) {
         this.mitra_name = mitra_name;
@@ -103,6 +108,11 @@ public class OrderReview extends AuditModel{
         this.review_customer = review_customer;
     }
 
+    public List<Order> getOrderList() {
+        return orderList;
+    }
 
-
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 }
