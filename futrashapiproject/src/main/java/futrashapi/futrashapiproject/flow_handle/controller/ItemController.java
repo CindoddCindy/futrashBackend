@@ -24,7 +24,7 @@ import javax.validation.Valid;
 
 @Controller
 @CrossOrigin("http://localhost:8081")
-@RequestMapping("item")
+@RequestMapping("/api/futrash/item")
 
 public class ItemController {
 

@@ -26,7 +26,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/dyas")
+@RequestMapping("/api/futrash/")
 
 public class AuthRestAPIs {
 

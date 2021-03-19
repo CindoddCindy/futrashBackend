@@ -17,7 +17,7 @@ import java.util.Optional;
 
 //seharusnya ini gausah krna review ada dri order , tapi di bkin untuk
 @RestController
-@RequestMapping("/api/v1/libraries")
+@RequestMapping("/api/futrash/reviews")
 public class ReviewController {
 
     private final OrderReviewRepository orderReviewRepository;
