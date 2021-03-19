@@ -24,7 +24,7 @@ import javax.validation.Valid;
 
 @Controller
 @CrossOrigin("http://localhost:8081")
-@RequestMapping("/api/futrash/item")
+@RequestMapping("/api/futrash/items")
 
 public class ItemController {
 
@@ -42,13 +42,11 @@ public class ItemController {
                                                       @Param("lokasi_makanan") String lokasi_makanan,
                                                       @Param("harga_makanan") String harga_makanan,
                                                       @Param("saran_penggunaan") String saran_penggunaan,
-                                                      @Param("kandungan_kimia") String kandungan_kimia
-                                                    //  @RequestPart(name = "users") @Valid final List<User> users
-
-                                                      ) {
+                                                      @Param("kandungan_kimia") String kandungan_kimia,
+                                                      @RequestPart(name = "users") @Valid final List<User> users) {
         String message = "";
         try {
-            itemService.store(file,jenis_makanan,tidak_dikonsumsi_sejak,dijual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia);
+            itemService.store(file,jenis_makanan,tidak_dikonsumsi_sejak,dijual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia,users);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -60,18 +58,19 @@ public class ItemController {
 
     @GetMapping("/files")
     public ResponseEntity<List<ResponseItem>> getListFiles() {
-        List<ResponseItem> files = itemService.getAllFiles().map(dbFile -> {
+        List<ResponseItem> files = itemService.getAllFiles().map(item -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
-                    .path(dbFile.getId())
+                    .path(item.getId())
                     .toUriString();
 
             return new ResponseItem(
-                    dbFile.getName(),
+                    item.getName(),
                     fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length);
+                    item.getType(),
+                    item.getData().length);
+
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
