@@ -53,7 +53,7 @@ public class Order extends AuditModel{
 
     @ManyToOne
     @JsonIgnore
-    private OrderReview orderReview;
+    private ConfirmOrder confirmOrder;
 
 
     public Order() {
@@ -164,11 +164,11 @@ public class Order extends AuditModel{
         this.itemList = itemList;
     }
 
-    public OrderReview getOrderReview() {
-        return orderReview;
+    public ConfirmOrder getConfirmOrder() {
+        return confirmOrder;
     }
 
-    public void setOrderReview(OrderReview orderReview) {
-        this.orderReview = orderReview;
+    public void setConfirmOrder(ConfirmOrder confirmOrder) {
+        this.confirmOrder = confirmOrder;
     }
 }
