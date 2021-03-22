@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/api/futrash/items")
 public class ConfirmOrderController {
 
     private ConfirmOrderService confirmOrderService;
