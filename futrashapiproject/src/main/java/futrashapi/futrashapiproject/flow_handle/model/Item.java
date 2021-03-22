@@ -65,9 +65,11 @@ public class Item extends  AuditModel{
     private List<User> userList;
 
 
-    @ManyToOne
-    @JsonIgnore
-    private Chart chart;
+    @OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "items_id")
+    private List<Chart> charts ;
+
+
 
 
     @ManyToOne
@@ -137,9 +139,39 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
+    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan, @NotNull String kandungan_kimia,Chart chart) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+        this.jenis_makanan = jenis_makanan;
+        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
+        this.dijual_karena = dijual_karena;
+        this.berat_makanan = berat_makanan;
+        this.nama_toko = nama_toko;
+        this.nama_penjual = nama_penjual;
+        this.lokasi_makanan = lokasi_makanan;
+        this.harga_makanan = harga_makanan;
+        this.saran_penggunaan = saran_penggunaan;
+        this.kandungan_kimia = kandungan_kimia;
+        this.chart = chart;
+    }
 
-
-
+    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan, @NotNull String kandungan_kimia, Order order) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+        this.jenis_makanan = jenis_makanan;
+        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
+        this.dijual_karena = dijual_karena;
+        this.berat_makanan = berat_makanan;
+        this.nama_toko = nama_toko;
+        this.nama_penjual = nama_penjual;
+        this.lokasi_makanan = lokasi_makanan;
+        this.harga_makanan = harga_makanan;
+        this.saran_penggunaan = saran_penggunaan;
+        this.kandungan_kimia = kandungan_kimia;
+        this.order = order;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -263,12 +295,12 @@ public class Item extends  AuditModel{
         this.data = data;
     }
 
-    public Chart getChart() {
-        return chart;
+    public List<Chart> getCharts() {
+        return charts;
     }
 
-    public void setChart(Chart chart) {
-        this.chart = chart;
+    public void setCharts(List<Chart> charts) {
+        this.charts = charts;
     }
 
     public Order getOrder() {

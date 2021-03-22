@@ -1,5 +1,6 @@
 package futrashapi.futrashapiproject.flow_handle.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.Nullable;
 
@@ -51,9 +52,9 @@ public class Chart extends AuditModel{
     private String kandungan_kimia;
 
 
-    @OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "charts_id")
-    private List<Item> items;
+    @ManyToOne
+    @JsonIgnore
+    private Item items;
 
 
 
@@ -171,11 +172,11 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public List<Item> getItems() {
+    public Item getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Item items) {
         this.items = items;
     }
 }

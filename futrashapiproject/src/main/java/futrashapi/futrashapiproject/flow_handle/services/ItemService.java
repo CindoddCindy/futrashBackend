@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import futrashapi.futrashapiproject.auth.model.User;
+import futrashapi.futrashapiproject.flow_handle.model.Chart;
 import futrashapi.futrashapiproject.flow_handle.model.Item;
+import futrashapi.futrashapiproject.flow_handle.model.Order;
 import futrashapi.futrashapiproject.flow_handle.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,35 @@ public class ItemService {
 
         return itemRepository.save(FileDB);
     }
+
+
+    public Item charts(MultipartFile file, String jenis_makanan, String tidak_dikonsumsi_sejak,
+                      String dujual_karena, String berat_makanan, String nama_toko,
+                      String nama_penjual, String lokasi_makanan, String harga_makanan,
+                      String saran_penggunaan, String kandungan_kimia,Chart chart
+    ) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Item FileDB = new Item(fileName, file.getContentType(), file.getBytes(), jenis_makanan,tidak_dikonsumsi_sejak,
+                dujual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia, chart
+        );
+
+        return itemRepository.save(FileDB);
+    }
+
+    public Item orders(MultipartFile file, String jenis_makanan, String tidak_dikonsumsi_sejak,
+                      String dujual_karena, String berat_makanan, String nama_toko,
+                      String nama_penjual, String lokasi_makanan, String harga_makanan,
+                      String saran_penggunaan, String kandungan_kimia, Order order
+    ) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Item FileDB = new Item(fileName, file.getContentType(), file.getBytes(), jenis_makanan,tidak_dikonsumsi_sejak,
+                dujual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia, order
+        );
+
+        return itemRepository.save(FileDB);
+    }
+
+
 
     public Item getFile(String id) {
         return itemRepository.findById(id).get();

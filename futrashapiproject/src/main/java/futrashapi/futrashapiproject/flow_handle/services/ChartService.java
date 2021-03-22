@@ -45,9 +45,9 @@ public class ChartService {
         //Role savedRole = roleRepository.save(newRole);
         Chart savedChart=chartRepository.save(newChart);
         if (chartRepository.findById(savedChart.getId()).isPresent()) {
-            return ResponseEntity.accepted().body("Successfully Created Role and Users");
+            return ResponseEntity.accepted().body("Successfully Created Chart");
         } else
-            return ResponseEntity.unprocessableEntity().body("Failed to Create specified Role");
+            return ResponseEntity.unprocessableEntity().body("Failed to Create specified Chart");
     }
 
     /**

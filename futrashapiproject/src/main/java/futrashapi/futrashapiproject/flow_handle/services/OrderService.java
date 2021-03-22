@@ -41,9 +41,9 @@ public class OrderService {
         newOrder.setItemList(order.getItemList());
         Order savedOrder = orderRepository.save(newOrder);
         if (orderRepository.findById(savedOrder.getId()).isPresent()) {
-            return ResponseEntity.accepted().body("Successfully Created Role and Users");
+            return ResponseEntity.accepted().body("Successfully Created Order");
         } else
-            return ResponseEntity.unprocessableEntity().body("Failed to Create specified Role");
+            return ResponseEntity.unprocessableEntity().body("Failed to Create specified order");
     }
 
     /**

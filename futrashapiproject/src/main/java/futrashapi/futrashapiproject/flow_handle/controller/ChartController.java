@@ -37,6 +37,7 @@ public class ChartController {
     public ResponseEntity<Object> deleteCharts(@PathVariable Long id) {
         return chartService.deleteChart(id);
     }
+
     @GetMapping("/charts/details/{id}")
     public Chart getChart(@PathVariable Long id) {
         if(chartRepository.findById(id).isPresent())
