@@ -1,21 +1,21 @@
 package futrashapi.futrashapiproject.flow_handle.services;
 
-import futrashapi.futrashapiproject.flow_handle.model.OrderReview;
+import futrashapi.futrashapiproject.flow_handle.model.ConfirmOrder;
+import futrashapi.futrashapiproject.flow_handle.repository.ConfirmOrderRepository;
 import futrashapi.futrashapiproject.flow_handle.repository.OrderRepository;
-import futrashapi.futrashapiproject.flow_handle.repository.OrderReviewRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ReviewService {
+public class ConfirmOrderService {
 
-    private OrderReviewRepository orderReviewRepository;
+    private ConfirmOrderRepository confirmOrderRepository;
 
     private OrderRepository orderRepository;
 
-    public ReviewService(OrderReviewRepository orderReviewRepository, OrderRepository orderRepository) {
-        this.orderReviewRepository = orderReviewRepository;
+    public ConfirmOrderService(ConfirmOrderRepository confirmOrderRepository, OrderRepository orderRepository) {
+        this.confirmOrderRepository = confirmOrderRepository;
         this.orderRepository = orderRepository;
     }
 
@@ -24,9 +24,9 @@ public class ReviewService {
      */
 
     @Transactional
-    public ResponseEntity<Object> addReview(OrderReview orderReview) {
+    public ResponseEntity<Object> addConfirm(ConfirmOrder confirmOrder) {
 
-        OrderReview newOrderReview = new OrderReview();
+        ConfirmOrder newConfirmOrder = new ConfirmOrder();
         newOrderReview.setMitra_name(orderReview.getMitra_name());
         newOrderReview.setCustomer_name(orderReview.getCustomer_name());
         newOrderReview.setFood_name(orderReview.getFood_name());
