@@ -27,15 +27,12 @@ public class ConfirmOrderService {
     public ResponseEntity<Object> addConfirm(ConfirmOrder confirmOrder) {
 
         ConfirmOrder newConfirmOrder = new ConfirmOrder();
-        newOrderReview.setMitra_name(orderReview.getMitra_name());
-        newOrderReview.setCustomer_name(orderReview.getCustomer_name());
-        newOrderReview.setFood_name(orderReview.getFood_name());
-        newOrderReview.setFood_location(orderReview.getFood_location());
-        newOrderReview.setReview_customer(orderReview.getReview_customer());
+        newConfirmOrder.setTerima_tolak(confirmOrder.getTerima_tolak());
+        confirmOrder.setCatatan_alasan(confirmOrder.getCatatan_alasan());
 
-        newOrderReview.setOrderList(orderReview.getOrderList());
-        OrderReview savedOrderReview = orderReviewRepository.save(newOrderReview);
-        if (orderReviewRepository.findById(savedOrderReview.getId()).isPresent()) {
+        newConfirmOrder.setOrderList(confirmOrder.getOrderList());
+        ConfirmOrder savedConfirmOrder = confirmOrderRepository.save(confirmOrder);
+        if (confirmOrderRepository.findById(savedConfirmOrder.getId()).isPresent()) {
             return ResponseEntity.accepted().body("Successfully Created Role and Users");
         } else
             return ResponseEntity.unprocessableEntity().body("Failed to Create specified Role");
@@ -44,10 +41,10 @@ public class ConfirmOrderService {
     /**
      * Delete a specified role given the id
      */
-    public ResponseEntity<Object> deleteOrderReview(Long id) {
-        if (orderReviewRepository.findById(id).isPresent()) {
-            orderReviewRepository.deleteById(id);
-            if (orderReviewRepository.findById(id).isPresent()) {
+    public ResponseEntity<Object> deleteConfirmOrder(Long id) {
+        if (confirmOrderRepository.findById(id).isPresent()) {
+            confirmOrderRepository.deleteById(id);
+            if (confirmOrderRepository.findById(id).isPresent()) {
                 return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
             } else return ResponseEntity.ok().body("Successfully deleted specified record");
         } else
