@@ -31,6 +31,8 @@ public class Item extends  AuditModel{
 
     //variabel lainnya
 
+
+
     @Nullable
     private String jenis_makanan;
 
@@ -65,14 +67,25 @@ public class Item extends  AuditModel{
     }
 
 
-    @ManyToMany(targetEntity = Order.class,cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private User user;
 
-    @ManyToMany(targetEntity = Chart.class,cascade = CascadeType.ALL)
-    private List<Chart> charts;
 
-    @ManyToMany(targetEntity = Item.class,cascade = CascadeType.ALL)
-    private List<Item> items;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Order order;
+
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Chart chart;
+
+
+
 
     public Item(String name, String type, byte[] data, String jenis_makanan, String tidak_dikonsumsi_sejak, String dijual_karena, String berat_makanan, String nama_toko, String nama_penjual, String lokasi_makanan, String harga_makanan, String saran_penggunaan, String kandungan_kimia) {
         this.name = name;
@@ -202,27 +215,5 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public List<Chart> getCharts() {
-        return charts;
-    }
-
-    public void setCharts(List<Chart> charts) {
-        this.charts = charts;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 }
