@@ -21,33 +21,5 @@ import java.util.Optional;
 @RequestMapping("/api/futrash")
 public class ChartController {
 
-    private ChartService chartService;
-    private ChartRepository chartRepository;
-
-    public ChartController(ChartService chartService, ChartRepository chartRepository) {
-        this.chartService = chartService;
-        this.chartRepository = chartRepository;
-    }
-
-    @PostMapping("/charts/create")
-    public ResponseEntity<Object> createChart(@RequestBody Chart chart) {
-        return  chartService.addChart(chart);
-    }
-    @DeleteMapping("/charts/delete/{id}")
-    public ResponseEntity<Object> deleteCharts(@PathVariable Long id) {
-        return chartService.deleteChart(id);
-    }
-
-    @GetMapping("/charts/details/{id}")
-    public Chart getChart(@PathVariable Long id) {
-        if(chartRepository.findById(id).isPresent())
-            return chartRepository.findById(id).get();
-        else return null;
-    }
-    @GetMapping("/charts/all")
-    public List<Chart> getCharts() {
-        return chartRepository.findAll();
-    }
-
 
 }

@@ -8,9 +8,13 @@ import futrashapi.futrashapiproject.auth.model.User;
 import futrashapi.futrashapiproject.flow_handle.model.Chart;
 import futrashapi.futrashapiproject.flow_handle.model.Item;
 import futrashapi.futrashapiproject.flow_handle.model.Order;
+import futrashapi.futrashapiproject.flow_handle.repository.ChartRepository;
 import futrashapi.futrashapiproject.flow_handle.repository.ItemRepository;
+import futrashapi.futrashapiproject.flow_handle.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,56 +22,5 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ItemService {
 
-    @Autowired
-    private ItemRepository itemRepository;
 
-    public Item store(MultipartFile file, String jenis_makanan, String tidak_dikonsumsi_sejak,
-                      String dujual_karena, String berat_makanan, String nama_toko,
-                      String nama_penjual, String lokasi_makanan, String harga_makanan,
-                      String saran_penggunaan, String kandungan_kimia, List<User> userList
-                      ) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Item FileDB = new Item(fileName, file.getContentType(), file.getBytes(), jenis_makanan,tidak_dikonsumsi_sejak,
-                dujual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia,userList
-                );
-
-        return itemRepository.save(FileDB);
-    }
-
-
-    public Item charts(MultipartFile file, String jenis_makanan, String tidak_dikonsumsi_sejak,
-                      String dujual_karena, String berat_makanan, String nama_toko,
-                      String nama_penjual, String lokasi_makanan, String harga_makanan,
-                      String saran_penggunaan, String kandungan_kimia,Chart chart
-    ) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Item FileDB = new Item(fileName, file.getContentType(), file.getBytes(), jenis_makanan,tidak_dikonsumsi_sejak,
-                dujual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia, chart
-        );
-
-        return itemRepository.save(FileDB);
-    }
-
-    public Item orders(MultipartFile file, String jenis_makanan, String tidak_dikonsumsi_sejak,
-                      String dujual_karena, String berat_makanan, String nama_toko,
-                      String nama_penjual, String lokasi_makanan, String harga_makanan,
-                      String saran_penggunaan, String kandungan_kimia, Order order
-    ) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Item FileDB = new Item(fileName, file.getContentType(), file.getBytes(), jenis_makanan,tidak_dikonsumsi_sejak,
-                dujual_karena,berat_makanan,nama_toko,nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia, order
-        );
-
-        return itemRepository.save(FileDB);
-    }
-
-
-
-    public Item getFile(String id) {
-        return itemRepository.findById(id).get();
-    }
-
-    public Stream<Item> getAllFiles() {
-        return itemRepository.findAll().stream();
-    }
 }

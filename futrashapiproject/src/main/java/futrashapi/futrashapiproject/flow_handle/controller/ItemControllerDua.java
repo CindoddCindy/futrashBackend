@@ -13,21 +13,5 @@ import java.util.List;
 @RequestMapping("/api/futrash")
 public class ItemControllerDua {
 
-    private ItemRepository itemRepository;
 
-    public ItemControllerDua(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
-
-    @GetMapping("/items/details/{id}")
-    public Item getItem(@PathVariable String id) {
-        if (itemRepository.findById(id).isPresent())
-            return itemRepository.findById(id).get();
-        else return null;
-    }
-
-    @GetMapping("/items/all")
-    public List<Item> getItem() {
-        return itemRepository.findAll();
-    }
 }

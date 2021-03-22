@@ -47,15 +47,6 @@ public class Order extends AuditModel{
     @Nullable
     private String shipping_type;
 
-    @OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "orders_id")
-    private List<Item> itemList;
-
-    @ManyToOne
-    @JsonIgnore
-    private ConfirmOrder confirmOrder;
-
-
     public Order() {
     }
 
@@ -70,11 +61,6 @@ public class Order extends AuditModel{
         this.customer_phone = customer_phone;
         this.shipping_type = shipping_type;
     }
-
-
-
-
-
 
     public Long getId() {
         return id;
@@ -154,21 +140,5 @@ public class Order extends AuditModel{
 
     public void setShipping_type(String shipping_type) {
         this.shipping_type = shipping_type;
-    }
-
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
-    }
-
-    public ConfirmOrder getConfirmOrder() {
-        return confirmOrder;
-    }
-
-    public void setConfirmOrder(ConfirmOrder confirmOrder) {
-        this.confirmOrder = confirmOrder;
     }
 }

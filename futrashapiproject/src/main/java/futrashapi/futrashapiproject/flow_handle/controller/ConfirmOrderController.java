@@ -13,30 +13,5 @@ import java.util.List;
 @RequestMapping("/api/futrash/items")
 public class ConfirmOrderController {
 
-    private ConfirmOrderService confirmOrderService;
-    private ConfirmOrderRepository confirmOrderRepository;
 
-    public ConfirmOrderController(ConfirmOrderService confirmOrderService, ConfirmOrderRepository confirmOrderRepository) {
-        this.confirmOrderService = confirmOrderService;
-        this.confirmOrderRepository = confirmOrderRepository;
-    }
-
-    @PostMapping("/confirm/create")
-    public ResponseEntity<Object> createConfirm(@RequestBody ConfirmOrder confirmOrder) {
-        return  confirmOrderService.addConfirm(confirmOrder);
-    }
-    @DeleteMapping("/confirm/delete/{id}")
-    public ResponseEntity<Object> deleteConfirm(@PathVariable Long id) {
-        return confirmOrderService.deleteConfirmOrder(id);
-    }
-    @GetMapping("/confirm/details/{id}")
-    public ConfirmOrder getConfirmOrder(@PathVariable Long id) {
-        if(confirmOrderRepository.findById(id).isPresent())
-            return confirmOrderRepository.findById(id).get();
-        else return null;
-    }
-    @GetMapping("/confirm/all")
-    public List<ConfirmOrder> getConfirm() {
-        return confirmOrderRepository.findAll();
-    }
 }
