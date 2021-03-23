@@ -14,5 +14,10 @@ import javax.transaction.Transactional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
+    Page<Order> findByItemId(String itemId, Pageable pageable);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Order o WHERE o.item.id = ?1")
+    void deleteByItemId(String itemId);
 }
