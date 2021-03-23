@@ -51,6 +51,8 @@ public class Chart extends AuditModel{
     @NotNull
     private String kandungan_kimia;
 
+
+
     public Chart(@NotNull String image_url, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, String saran_penggunaan, @NotNull String kandungan_kimia) {
         this.image_url = image_url;
         this.jenis_makanan = jenis_makanan;
@@ -163,4 +165,6 @@ public class Chart extends AuditModel{
     public void setKandungan_kimia(String kandungan_kimia) {
         this.kandungan_kimia = kandungan_kimia;
     }
+
+
 }
