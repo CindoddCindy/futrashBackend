@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/charts")
+@RequestMapping("/api/futrash/charts")
 public class ChartController {
 
     private final ChartRepository chartRepository;
