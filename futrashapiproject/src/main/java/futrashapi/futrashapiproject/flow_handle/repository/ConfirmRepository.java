@@ -11,10 +11,10 @@ import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
 
 public interface ConfirmRepository extends JpaRepository<Confirm, Long> {
-    Page<Confirm> findByOrderId(String orderId, Pageable pageable);
+    Page<Confirm> findByOrderId(Long orderId, Pageable pageable);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Confirm c WHERE c.order.id = ?1")
-    void deleteByOrderId(String orderId);
+    void deleteByOrderId(Long orderId);
 }
