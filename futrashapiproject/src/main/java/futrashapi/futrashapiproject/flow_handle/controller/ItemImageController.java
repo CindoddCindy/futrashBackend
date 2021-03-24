@@ -26,7 +26,7 @@ public class ItemImageController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadImageItem(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
             itemImageService.store(file);
@@ -40,7 +40,7 @@ public class ItemImageController {
     }
 
     @GetMapping("/files")
-    public ResponseEntity<List<ResponseItem>> getListFiles() {
+    public ResponseEntity<List<ResponseItem>> getListImageItem() {
         List<ResponseItem> files = itemImageService.getAllFiles().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
@@ -59,7 +59,7 @@ public class ItemImageController {
     }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+    public ResponseEntity<byte[]> getFileImageItem(@PathVariable String id) {
         ItemImage fileDB = itemImageService.getFile(id);
 
         return ResponseEntity.ok()
