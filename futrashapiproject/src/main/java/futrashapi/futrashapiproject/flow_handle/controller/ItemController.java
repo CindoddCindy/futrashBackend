@@ -21,7 +21,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/books")
+@RequestMapping("/api/futrash/item")
 public class ItemController {
 
 
