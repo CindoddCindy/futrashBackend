@@ -35,7 +35,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<Item> create(@RequestBody @Valid Item item) {
+    public ResponseEntity<Item> create(@RequestHeader("Authorization") String token, @RequestBody @Valid Item item) {
         Optional<User> optionalUser = userRepository.findById(item.getUser().getId());
         if (!optionalUser.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
