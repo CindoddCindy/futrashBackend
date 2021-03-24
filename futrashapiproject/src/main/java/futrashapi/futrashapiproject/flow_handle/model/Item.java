@@ -62,14 +62,11 @@ public class Item extends  AuditModel{
     @NotNull
     private String kandungan_kimia;
 
-    @OneToMany(targetEntity = User.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<User> userList;
-
 
     public Item() {
     }
 
-    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, @NotNull String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, @NotNull String saran_penggunaan, @NotNull String kandungan_kimia, List<User> userList) {
+    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, @NotNull String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, @NotNull String saran_penggunaan, @NotNull String kandungan_kimia) {
         this.name = name;
         this.type = type;
         this.data = data;
@@ -83,7 +80,7 @@ public class Item extends  AuditModel{
         this.harga_makanan = harga_makanan;
         this.saran_penggunaan = saran_penggunaan;
         this.kandungan_kimia = kandungan_kimia;
-        this.userList = userList;
+
     }
 
     public String getId() {
@@ -198,11 +195,5 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
 }

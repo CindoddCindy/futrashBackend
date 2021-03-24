@@ -23,12 +23,12 @@ public class ItemService {
 
     public Item store(MultipartFile file, String jenis_makanan, String tidak_dikonsumsi_sejak,
                       String dijual_karena, String berat_makanan, String nama_toko, String nama_penjual,
-                      String lokasi_makanan, String harga_makanan, String saran_penggunaan, String kandungan_kimia,  List<User> users
+                      String lokasi_makanan, String harga_makanan, String saran_penggunaan, String kandungan_kimia
                       ) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Item FileDB = new Item(fileName, file.getContentType(), file.getBytes(), jenis_makanan,
                 tidak_dikonsumsi_sejak,dijual_karena,berat_makanan,nama_toko,
-                nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia,users
+                nama_penjual,lokasi_makanan,harga_makanan,saran_penggunaan,kandungan_kimia
                 );
 
         return itemRepository.save(FileDB);
