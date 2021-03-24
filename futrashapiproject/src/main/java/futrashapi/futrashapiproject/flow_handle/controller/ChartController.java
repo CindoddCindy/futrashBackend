@@ -91,7 +91,7 @@ public class ChartController {
     }
 
     @GetMapping("/item/{itemId}")
-    public ResponseEntity<Page<Chart>> getByItemId(@PathVariable String itemId, Pageable pageable) {
+    public ResponseEntity<Page<Chart>> getByItemId(@PathVariable Long itemId, Pageable pageable) {
         return ResponseEntity.ok(chartRepository.findByItemId(itemId, pageable));
     }
 

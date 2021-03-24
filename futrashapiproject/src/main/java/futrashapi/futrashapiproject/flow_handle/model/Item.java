@@ -17,19 +17,8 @@ import java.util.Set;
 public class Item extends  AuditModel{
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-
-    private String name;
-
-    private String type;
-
-    @Lob
-    private byte[] data;
-
-    //variabel lainnya
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
 
     @NotNull
@@ -66,54 +55,12 @@ public class Item extends  AuditModel{
     public Item() {
     }
 
-    public Item(String name, String type, byte[] data, @NotNull String jenis_makanan, @NotNull String tidak_dikonsumsi_sejak, @NotNull String dijual_karena, @NotNull String berat_makanan, @NotNull String nama_toko, @NotNull String nama_penjual, @NotNull String lokasi_makanan, @NotNull String harga_makanan, @NotNull String saran_penggunaan, @NotNull String kandungan_kimia) {
-        this.name = name;
-        this.type = type;
-        this.data = data;
-        this.jenis_makanan = jenis_makanan;
-        this.tidak_dikonsumsi_sejak = tidak_dikonsumsi_sejak;
-        this.dijual_karena = dijual_karena;
-        this.berat_makanan = berat_makanan;
-        this.nama_toko = nama_toko;
-        this.nama_penjual = nama_penjual;
-        this.lokasi_makanan = lokasi_makanan;
-        this.harga_makanan = harga_makanan;
-        this.saran_penggunaan = saran_penggunaan;
-        this.kandungan_kimia = kandungan_kimia;
 
-    }
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private User user;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 
     public String getJenis_makanan() {
         return jenis_makanan;
@@ -195,5 +142,19 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

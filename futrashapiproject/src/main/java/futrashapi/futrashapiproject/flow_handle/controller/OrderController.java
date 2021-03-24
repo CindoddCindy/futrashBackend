@@ -94,7 +94,7 @@ public class OrderController {
     }
 
     @GetMapping("/item/{itemId}")
-    public ResponseEntity<Page<Order>> getByItemId(@PathVariable String itemId, Pageable pageable) {
+    public ResponseEntity<Page<Order>> getByItemId(@PathVariable Long itemId, Pageable pageable) {
         return ResponseEntity.ok(orderRepository.findByItemId(itemId, pageable));
     }
 

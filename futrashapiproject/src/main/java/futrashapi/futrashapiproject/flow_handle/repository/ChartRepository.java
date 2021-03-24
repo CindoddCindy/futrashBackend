@@ -13,10 +13,10 @@ import javax.transaction.Transactional;
 @Repository
 public interface ChartRepository extends JpaRepository<Chart, Long> {
 
-    Page<Chart> findByItemId(String itemId, Pageable pageable);
+    Page<Chart> findByItemId(Long itemId, Pageable pageable);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Chart c WHERE c.item.id = ?1")
-    void deleteByItemId(String itemId);
+    void deleteByItemId(Long itemId);
 }
