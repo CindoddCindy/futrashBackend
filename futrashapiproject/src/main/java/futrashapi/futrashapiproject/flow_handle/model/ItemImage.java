@@ -1,11 +1,10 @@
 package futrashapi.futrashapiproject.flow_handle.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import futrashapi.futrashapiproject.auth.model.User;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -21,8 +20,18 @@ public class ItemImage {
 
     private String type;
 
+
+
     @Lob
     private byte[] data;
+
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private User user;
+
+
 
     public ItemImage() {
     }
@@ -31,6 +40,7 @@ public class ItemImage {
         this.name = name;
         this.type = type;
         this.data = data;
+
     }
 
     public String getId() {
