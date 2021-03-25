@@ -26,12 +26,6 @@ public class ItemImage {
     private byte[] data;
 
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
-
-
 
     public ItemImage() {
     }

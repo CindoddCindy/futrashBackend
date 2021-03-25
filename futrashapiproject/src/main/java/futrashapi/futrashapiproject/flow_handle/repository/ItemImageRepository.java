@@ -12,11 +12,5 @@ import javax.transaction.Transactional;
 
 public interface ItemImageRepository extends JpaRepository<ItemImage, String> {
 
-    Page<ItemImage> findByUserId(Long userId, Pageable pageable);
-
-    @Modifying
-    @Transactional
-    @Query("DELETE FROM ItemImage i WHERE i.user.id = ?1")
-    void deleteByUserId(Long userId);
 
 }
