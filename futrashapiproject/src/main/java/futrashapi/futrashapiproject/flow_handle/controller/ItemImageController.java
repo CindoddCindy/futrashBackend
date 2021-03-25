@@ -28,10 +28,11 @@ public class ItemImageController {
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadImageItem(@RequestParam("file") MultipartFile file) {
         String message = "";
+        ItemImage itemImage = new ItemImage();
         try {
             itemImageService.store(file);
 
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            message = "Uploaded the file successfully: " + file.getOriginalFilename() + itemImage.getId();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
@@ -41,18 +42,18 @@ public class ItemImageController {
 
     @GetMapping("/files")
     public ResponseEntity<List<ResponseItem>> getListImageItem() {
-        List<ResponseItem> files = itemImageService.getAllFiles().map(dbFile -> {
+        List<ResponseItem> files = itemImageService.getAllFiles().map(itemImage -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
-                    .path(dbFile.getId())
+                    .path(itemImage.getId())
                     .toUriString();
 
             return new ResponseItem(
-                    dbFile.getName(),
+                    itemImage.getName(),
                     fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length);
+                    itemImage.getType(),
+                    itemImage.getData().length);
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
