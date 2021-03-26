@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
 
 public interface ItemImageRepository extends JpaRepository<ItemImage, String> {
+/*
+    Page<ItemImage> findByItemId(Long itemId, Pageable pageable);
 
-
+ */
 }

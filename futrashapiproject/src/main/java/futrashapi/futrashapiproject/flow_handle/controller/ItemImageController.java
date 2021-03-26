@@ -1,11 +1,15 @@
 package futrashapi.futrashapiproject.flow_handle.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import futrashapi.futrashapiproject.auth.repository.UserRepository;
+import futrashapi.futrashapiproject.flow_handle.exception.ResourceNotFoundException;
 import futrashapi.futrashapiproject.flow_handle.exception.message.ResponseItem;
 import futrashapi.futrashapiproject.flow_handle.exception.message.ResponseMessage;
 import futrashapi.futrashapiproject.flow_handle.model.ItemImage;
+import futrashapi.futrashapiproject.flow_handle.repository.ItemRepository;
 import futrashapi.futrashapiproject.flow_handle.services.ItemImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +28,9 @@ public class ItemImageController {
     @Autowired
     private ItemImageService itemImageService;
 
+    @Autowired
+    ItemRepository itemRepository;
+
     @PostMapping("/upload")
 
     public ResponseEntity<ResponseMessage> uploadImageItem(@RequestParam("file") MultipartFile file) {
@@ -40,9 +47,26 @@ public class ItemImageController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
+/*
+
+    @PostMapping("/items/{itemId}/itemImage")
+    public ItemImage createImage(@RequestParam("file") MultipartFile file,@PathVariable (value = "itemId") Long itemId
+                                 ) {
+        ItemImage itemImage= new ItemImage();
+        return itemRepository.findById(itemId).map(item -> {
+            itemImage.setItem(item);
+            try {
+                return itemImageService.store(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
+    }
 
 
 
+ */
 
 
     @GetMapping("/files/")

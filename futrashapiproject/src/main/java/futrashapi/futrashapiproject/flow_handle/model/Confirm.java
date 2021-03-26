@@ -23,10 +23,7 @@ public class Confirm extends AuditModel{
     private String catatan_alasan;
 
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Order order;
+
 
     public Confirm() {
     }
@@ -55,11 +52,5 @@ public class Confirm extends AuditModel{
         this.catatan_alasan = catatan_alasan;
     }
 
-    public Order getOrder() {
-        return order;
-    }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }

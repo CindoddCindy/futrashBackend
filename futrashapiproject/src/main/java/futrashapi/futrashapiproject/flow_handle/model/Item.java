@@ -20,14 +20,6 @@ public class Item extends  AuditModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //nambah
-
-    private String name;
-
-    private String type;
-
-    @Lob
-    private byte[] data;
 
 
 
@@ -66,10 +58,7 @@ public class Item extends  AuditModel{
     }
 
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
+
 
 
     public String getJenis_makanan() {
@@ -152,29 +141,6 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 
     public Long getId() {
         return id;
@@ -184,11 +150,4 @@ public class Item extends  AuditModel{
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

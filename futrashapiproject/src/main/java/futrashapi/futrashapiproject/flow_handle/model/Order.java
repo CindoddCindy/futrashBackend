@@ -47,10 +47,7 @@ public class Order extends AuditModel{
     @Nullable
     private String shipping_type;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Item item;
+
 
     public Order() {
     }
@@ -135,11 +132,5 @@ public class Order extends AuditModel{
         this.shipping_type = shipping_type;
     }
 
-    public Item getItem() {
-        return item;
-    }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
 }

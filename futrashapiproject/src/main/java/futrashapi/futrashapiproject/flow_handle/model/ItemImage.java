@@ -3,9 +3,12 @@ package futrashapi.futrashapiproject.flow_handle.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import futrashapi.futrashapiproject.auth.model.User;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "item_image")
@@ -25,7 +28,14 @@ public class ItemImage {
     @Lob
     private byte[] data;
 
+/*
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "item_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Item item;
 
+ */
 
     public ItemImage() {
     }
@@ -64,5 +74,14 @@ public class ItemImage {
     public void setData(byte[] data) {
         this.data = data;
     }
+/*
+    public Item getItem() {
+        return item;
+    }
 
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+ */
 }
