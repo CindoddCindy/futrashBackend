@@ -9,7 +9,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 public interface ConfirmRepository extends JpaRepository<Confirm, Long> {
+    Page<Confirm> findByOrderId(Long orderId, Pageable pageable);
+    Optional<Confirm> findByIdAndOrderId(Long id, Long orderId);
 
 }

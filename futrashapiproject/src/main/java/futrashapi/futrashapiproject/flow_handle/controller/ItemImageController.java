@@ -47,26 +47,8 @@ public class ItemImageController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
-/*
-
-    @PostMapping("/items/{itemId}/itemImage")
-    public ItemImage createImage(@RequestParam("file") MultipartFile file,@PathVariable (value = "itemId") Long itemId
-                                 ) {
-        ItemImage itemImage= new ItemImage();
-        return itemRepository.findById(itemId).map(item -> {
-            itemImage.setItem(item);
-            try {
-                return itemImageService.store(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
-    }
 
 
-
- */
 
 
     @GetMapping("/files/")

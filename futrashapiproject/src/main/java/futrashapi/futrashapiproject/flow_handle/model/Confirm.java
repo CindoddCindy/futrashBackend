@@ -1,15 +1,14 @@
 package futrashapi.futrashapiproject.flow_handle.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "confirm_order")
+@Table(name = "confirm")
+
 public class Confirm extends AuditModel{
 
     @Id
@@ -22,7 +21,11 @@ public class Confirm extends AuditModel{
     @NotNull
     private String catatan_alasan;
 
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Order order;
 
 
     public Confirm() {
@@ -52,5 +55,11 @@ public class Confirm extends AuditModel{
         this.catatan_alasan = catatan_alasan;
     }
 
+    public Order getOrder() {
+        return order;
+    }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

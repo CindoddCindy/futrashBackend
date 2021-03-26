@@ -9,6 +9,7 @@ import futrashapi.futrashapiproject.auth.model.User;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "item_image")
@@ -28,17 +29,16 @@ public class ItemImage {
     @Lob
     private byte[] data;
 
-/*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Item item;
 
- */
+
+
 
     public ItemImage() {
     }
+
+
+
+
 
     public ItemImage(String name, String type, byte[] data) {
         this.name = name;
@@ -46,6 +46,9 @@ public class ItemImage {
         this.data = data;
 
     }
+
+
+
 
     public String getId() {
         return id;
@@ -74,14 +77,8 @@ public class ItemImage {
     public void setData(byte[] data) {
         this.data = data;
     }
-/*
-    public Item getItem() {
-        return item;
-    }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
 
- */
+
+
 }

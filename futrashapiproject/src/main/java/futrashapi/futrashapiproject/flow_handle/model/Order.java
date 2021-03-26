@@ -1,14 +1,11 @@
 package futrashapi.futrashapiproject.flow_handle.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.Nullable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "orders")
@@ -47,7 +44,11 @@ public class Order extends AuditModel{
     @Nullable
     private String shipping_type;
 
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "item_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Item item;
 
     public Order() {
     }
@@ -132,5 +133,11 @@ public class Order extends AuditModel{
         this.shipping_type = shipping_type;
     }
 
+    public Item getItem() {
+        return item;
+    }
 
+    public void setItem(Item item) {
+        this.item = item;
+    }
 }

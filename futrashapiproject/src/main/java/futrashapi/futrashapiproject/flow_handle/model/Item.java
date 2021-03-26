@@ -1,27 +1,20 @@
 package futrashapi.futrashapiproject.flow_handle.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.Nullable;
 import futrashapi.futrashapiproject.auth.model.User;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
+@Table(name = "items")
 public class Item extends  AuditModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-
 
     @NotNull
     private String jenis_makanan;
@@ -52,6 +45,15 @@ public class Item extends  AuditModel{
 
     @NotNull
     private String kandungan_kimia;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
+
+
 
 
     public Item() {
@@ -149,5 +151,14 @@ public class Item extends  AuditModel{
     public void setId(Long id) {
         this.id = id;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
 }
