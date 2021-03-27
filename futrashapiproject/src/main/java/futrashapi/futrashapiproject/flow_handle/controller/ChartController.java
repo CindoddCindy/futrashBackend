@@ -25,7 +25,7 @@ public class ChartController {
     @GetMapping("/users/{userId}/charts")
     public Page<Chart> getAllChartByUserId(@PathVariable (value = "userId") Long userId,
                                               Pageable pageable) {
-        return chartRepository.findByItemId(userId, pageable);
+        return chartRepository.findByUserId(userId, pageable);
     }
 
     @PostMapping("/users/{userId}/charts")
@@ -41,7 +41,7 @@ public class ChartController {
     @DeleteMapping("/users/{userId}/charts/{chartId}")
     public ResponseEntity<?> deleteChart(@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "chartId") Long chartId) {
-        return chartRepository.findByIdAndItemId(chartId, userId).map(chart -> {
+        return chartRepository.findByIdAndUserId(chartId, userId).map(chart -> {
             chartRepository.delete(chart);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("Comment not found with id " + chartId + " and userId " +userId));
