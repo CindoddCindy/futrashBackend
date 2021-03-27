@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface ChartRepository extends JpaRepository<Chart, Long> {
 
-    Page<Chart> findByItemId(Long itemId, Pageable pageable);
-    Optional<Chart> findByIdAndItemId(Long id, Long itemId);
+    Page<Chart> findByItemId(Long userId, Pageable pageable);
+    Optional<Chart> findByIdAndItemId(Long id, Long userId);
 
 }

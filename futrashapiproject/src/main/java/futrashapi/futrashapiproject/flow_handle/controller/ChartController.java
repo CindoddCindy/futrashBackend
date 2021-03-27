@@ -1,5 +1,6 @@
 package futrashapi.futrashapiproject.flow_handle.controller;
 
+import futrashapi.futrashapiproject.auth.repository.UserRepository;
 import futrashapi.futrashapiproject.flow_handle.exception.ResourceNotFoundException;
 import futrashapi.futrashapiproject.flow_handle.model.Chart;
 import futrashapi.futrashapiproject.flow_handle.repository.ChartRepository;
@@ -19,31 +20,31 @@ public class ChartController {
     private ChartRepository chartRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/items/{itemId}/charts")
-    public Page<Chart> getAllChartByItemId(@PathVariable (value = "itemId") Long itemId,
+    @GetMapping("/users/{userId}/charts")
+    public Page<Chart> getAllChartByUserId(@PathVariable (value = "userId") Long userId,
                                               Pageable pageable) {
-        return chartRepository.findByItemId(itemId, pageable);
+        return chartRepository.findByItemId(userId, pageable);
     }
 
-    @PostMapping("/items/{itemId}/charts")
-    public Chart createChart(@PathVariable (value = "itemId") Long itemId,
+    @PostMapping("/users/{userId}/charts")
+    public Chart createChart(@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Chart chart) {
-        return itemRepository.findById(itemId).map(item -> {
-            chart.setItem(item);
+        return userRepository.findById(userId).map(user -> {
+            chart.setUser(user);
             return chartRepository.save(chart);
-        }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     }
 
    //cart gabisa di edit
-    @DeleteMapping("/items/{itemId}/charts/{chartId}")
-    public ResponseEntity<?> deleteChart(@PathVariable (value = "itemId") Long itemId,
+    @DeleteMapping("/users/{userId}/charts/{chartId}")
+    public ResponseEntity<?> deleteChart(@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "chartId") Long chartId) {
-        return chartRepository.findByIdAndItemId(chartId, itemId).map(chart -> {
+        return chartRepository.findByIdAndItemId(chartId, userId).map(chart -> {
             chartRepository.delete(chart);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("Comment not found with id " + chartId + " and postId " +itemId));
+        }).orElseThrow(() -> new ResourceNotFoundException("Comment not found with id " + chartId + " and userId " +userId));
     }
 
 

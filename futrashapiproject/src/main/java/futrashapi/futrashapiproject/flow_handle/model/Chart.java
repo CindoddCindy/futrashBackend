@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.sun.istack.Nullable;
+import futrashapi.futrashapiproject.auth.model.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -50,10 +51,10 @@ public class Chart extends AuditModel{
     private String kandungan_kimia;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Item item;
+    private User user;
 
     public Chart() {
     }
@@ -154,11 +155,11 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
-    public Item getItem() {
-        return item;
+    public User getUser() {
+        return user;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
