@@ -41,6 +41,8 @@ public class ItemImageService {
         return itemImageRepository.findById(id).get();
     }
 
+
+
     public Stream<ItemImage> getAllFiles() {
         return itemImageRepository.findAll().stream();
     }

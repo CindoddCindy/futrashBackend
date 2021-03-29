@@ -23,7 +23,7 @@ public class ConfirmController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/users/{usersId}/confirm")
+    @GetMapping("/users/{userId}/confirm")
     public Page<Confirm> getAllConfirmByOrderId(@PathVariable (value = "userId") Long userId,
                                                 Pageable pageable) {
         return confirmRepository.findByUserId(userId, pageable);
