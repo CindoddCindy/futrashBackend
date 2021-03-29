@@ -10,6 +10,8 @@ import futrashapi.futrashapiproject.auth.model.User;
 import futrashapi.futrashapiproject.auth.repository.RoleRepository;
 import futrashapi.futrashapiproject.auth.repository.UserRepository;
 import futrashapi.futrashapiproject.auth.security.jwt.JwtProvider;
+import futrashapi.futrashapiproject.flow_handle.exception.ResourceNotFoundException;
+import futrashapi.futrashapiproject.flow_handle.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,5 +107,33 @@ public class AuthRestAPIs {
         userRepository.save(user);
 
         return ResponseEntity.ok().body("User registered successfully!");
+    }
+
+    //edit user test
+    @PutMapping("/users/{id}")
+    public void editUser(@PathVariable long id, @RequestBody User userGet) {
+        User user= new User();
+        user.setName(userGet.getName());
+        user.setEmail(userGet.getEmail());
+        user.setPhone(userGet.getPhone());
+        user.setPassword(userGet.getPassword());
+        user.setRoles(userGet.getRoles());
+        userRepository.save(user);
+
+    }
+
+    //tes delete user
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable long id) {
+        userRepository.deleteById(id);
+
+    }
+
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable long id) {
+        return userRepository
+                .findById(id)
+                .orElseThrow(UserNotFoundException::new);
+
     }
 }
