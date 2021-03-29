@@ -111,7 +111,7 @@ public class AuthRestAPIs {
 
     //edit user test
     @PutMapping("/edit/{id}")
-    public void editUser(@PathVariable long id, @RequestBody User userGet) {
+    public void editUser(@RequestHeader("Authorization") String token, @PathVariable long id, @RequestBody User userGet) {
         User user= new User();
         user.setName(userGet.getName());
         user.setEmail(userGet.getEmail());
@@ -130,7 +130,7 @@ public class AuthRestAPIs {
     }
 
     @GetMapping("/show/{id}")
-    public User getUser(@PathVariable long id) {
+    public User getUser( @RequestHeader("Authorization") String token,@PathVariable long id) {
         return userRepository
                 .findById(id)
                 .orElseThrow(UserNotFoundException::new);

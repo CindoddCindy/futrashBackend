@@ -24,13 +24,13 @@ public class ConfirmController {
     private UserRepository userRepository;
 
     @GetMapping("/users/{userId}/confirm")
-    public Page<Confirm> getAllConfirmByOrderId(@PathVariable (value = "userId") Long userId,
+    public Page<Confirm> getAllConfirmByOrderId(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                                 Pageable pageable) {
         return confirmRepository.findByUserId(userId, pageable);
     }
 
     @PostMapping("/users/{userId}/confirm")
-    public Confirm createConfirm(@PathVariable (value = "userId") Long userId,
+    public Confirm createConfirm(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Confirm confirm) {
         return userRepository.findById(userId).map(user -> {
             confirm.setUser(user);
@@ -39,7 +39,7 @@ public class ConfirmController {
     }
 
     @PutMapping("/users/{userId}/confirm/{confirmId}")
-    public Confirm updateConfirm(@PathVariable (value = "userId") Long userId,
+    public Confirm updateConfirm(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @PathVariable (value = "confirmId") Long confirmId,
                                  @Valid @RequestBody Confirm confirmRequest) {
         if(!userRepository.existsById(userId)) {
@@ -54,7 +54,7 @@ public class ConfirmController {
     }
 
     @DeleteMapping("/users/{userId}/confirm/{confirmId}")
-    public ResponseEntity<?> deleteConfirm(@PathVariable (value = "userId") Long userId,
+    public ResponseEntity<?> deleteConfirm(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "confirmId") Long confirmId) {
         return confirmRepository.findByIdAndUserId(confirmId, userId).map(confirm -> {
             confirmRepository.delete(confirm);

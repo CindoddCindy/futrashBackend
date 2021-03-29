@@ -24,13 +24,13 @@ public class OrderController {
     private UserRepository userRepository;
 
     @GetMapping("/users/{userId}/orders")
-    public Page<Order> getAllOrderByItemId(@PathVariable (value = "userId") Long userId,
+    public Page<Order> getAllOrderByItemId(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                               Pageable pageable) {
         return orderRepository.findByUserId(userId, pageable);
     }
 
     @PostMapping("/users/{userId}/orders")
-    public Order createOrder(@PathVariable (value = "userId") Long userId,
+    public Order createOrder(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Order order) {
         return userRepository.findById(userId).map(user -> {
             order.setUser(user);
@@ -39,7 +39,7 @@ public class OrderController {
     }
 
     @PutMapping("/users/{userId}/orders/{orderId}")
-    public Order updateOrder(@PathVariable (value = "userId") Long userId,
+    public Order updateOrder(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @PathVariable (value = "orderId") Long orderId,
                                  @Valid @RequestBody Order orderRequest) {
         if(!userRepository.existsById(userId)) {
@@ -56,7 +56,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/users/{userId}/orders/{orderId}")
-    public ResponseEntity<?> deleteOrder(@PathVariable (value = "userId") Long userId,
+    public ResponseEntity<?> deleteOrder(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "orderId") Long orderId) {
         return orderRepository.findByIdAndUserId(orderId, userId).map(order -> {
             orderRepository.delete(order);

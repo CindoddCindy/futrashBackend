@@ -24,13 +24,13 @@ public class ChartController {
     private UserRepository userRepository;
 
     @GetMapping("/users/{userId}/charts")
-    public Page<Chart> getAllChartByUserId(@PathVariable (value = "userId") Long userId,
+    public Page<Chart> getAllChartByUserId(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                               Pageable pageable) {
         return chartRepository.findByUserId(userId, pageable);
     }
 
     @PostMapping("/users/{userId}/charts")
-    public Chart createChart(@PathVariable (value = "userId") Long userId,
+    public Chart createChart(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Chart chart) {
         return userRepository.findById(userId).map(user -> {
             chart.setUser(user);
@@ -40,7 +40,7 @@ public class ChartController {
 
    //cart gabisa di edit
     @DeleteMapping("/users/{userId}/charts/{chartId}")
-    public ResponseEntity<?> deleteChart(@PathVariable (value = "userId") Long userId,
+    public ResponseEntity<?> deleteChart(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "chartId") Long chartId) {
         return chartRepository.findByIdAndUserId(chartId, userId).map(chart -> {
             chartRepository.delete(chart);

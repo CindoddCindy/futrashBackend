@@ -23,13 +23,13 @@ public class ItemController {
     private UserRepository userRepository;
 
     @GetMapping("/users/{userId}/items")
-    public Page<Item> getAllItemByUserId(@PathVariable (value = "userId") Long userId,
+    public Page<Item> getAllItemByUserId(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                              Pageable pageable) {
         return itemRepository.findByUserId(userId, pageable);
     }
 
     @PostMapping("/users/{userId}/items")
-    public Item createItem(@PathVariable (value = "userId") Long userId,
+    public Item createItem(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Item item) {
         return userRepository.findById(userId).map(user -> {
             item.setUser(user);
@@ -38,7 +38,7 @@ public class ItemController {
     }
 
     @PutMapping("/users/{userId}/items/{itemId}")
-    public Item updateItem(@PathVariable (value = "userId") Long userId,
+    public Item updateItem(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                  @PathVariable (value = "itemId") Long itemId,
                                  @Valid @RequestBody Item itemRequest) {
         if(!userRepository.existsById(userId)) {
@@ -62,7 +62,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/users/{userId}/items/{itemId}")
-    public ResponseEntity<?> deleteItem(@PathVariable (value = "userId") Long userId,
+    public ResponseEntity<?> deleteItem(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "itemId") Long itemId) {
         return itemRepository.findByIdAndUserId(itemId, userId).map(item -> {
             itemRepository.delete(item);
