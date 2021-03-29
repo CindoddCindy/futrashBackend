@@ -124,7 +124,7 @@ public class AuthRestAPIs {
 
     //tes delete user
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable long id) {
+    public void deleteUser(@RequestHeader("Authorization") String token,@PathVariable long id) {
         userRepository.deleteById(id);
 
     }
