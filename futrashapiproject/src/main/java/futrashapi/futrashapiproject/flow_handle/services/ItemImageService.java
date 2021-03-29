@@ -49,4 +49,33 @@ public class ItemImageService {
     public Stream<ItemImage> getFilesId(String id) {
         return itemImageRepository.findAll().stream();
     }
+
+    //delete image test
+
+    public ResponseEntity<Object> deleteImage(String id) {
+        if (itemImageRepository.findById(id).isPresent()) {
+            itemImageRepository.deleteById(id);
+            if (itemImageRepository.findById(id).isPresent()) {
+                return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
+            } else return ResponseEntity.ok().body("Successfully deleted specified record");
+        } else
+            return ResponseEntity.unprocessableEntity().body("No Records Found");
+    }
+
+    //edit image test
+    public ItemImage storeEdit(String id, MultipartFile file) throws IOException {
+        if (itemImageRepository.findById(id).isPresent()) {
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            ItemImage itemImage = new ItemImage(fileName, file.getContentType(), file.getBytes());
+            return itemImageRepository.save(itemImage);
+
+
+        }
+        return null;
+    }
+
+
+
+
+
 }

@@ -9,6 +9,7 @@ import futrashapi.futrashapiproject.flow_handle.exception.ResourceNotFoundExcept
 import futrashapi.futrashapiproject.flow_handle.exception.message.ResponseItem;
 import futrashapi.futrashapiproject.flow_handle.exception.message.ResponseMessage;
 import futrashapi.futrashapiproject.flow_handle.model.ItemImage;
+import futrashapi.futrashapiproject.flow_handle.repository.ItemImageRepository;
 import futrashapi.futrashapiproject.flow_handle.repository.ItemRepository;
 import futrashapi.futrashapiproject.flow_handle.services.ItemImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,9 @@ public class ItemImageController {
     private ItemImageService itemImageService;
 
     @Autowired
-    ItemRepository itemRepository;
+    ItemImageRepository itemImageRepository;
 
     @PostMapping("/upload")
-
     public ResponseEntity<ResponseMessage> uploadImageItem(@RequestParam("file") MultipartFile file) {
         String message = "";
         ItemImage itemImage = new ItemImage();
@@ -97,6 +97,39 @@ public class ItemImageController {
 
 
     }
+
+
+    @DeleteMapping("/image/delete/{id}")
+    public ResponseEntity<Object> deleteImage(@PathVariable String id) {
+        return itemImageService.deleteImage(id);
+    }
+    @GetMapping("/image/details/{id}")
+    public ItemImage getItemImage(@PathVariable String id) {
+        if(itemImageRepository.findById(id).isPresent())
+            return itemImageRepository.findById(id).get();
+        else return null;
+    }
+    @GetMapping("/role/all")
+    public List<ItemImage> getItemImage() {
+        return itemImageRepository.findAll();
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<ResponseMessage> editImageItem(String id,@RequestParam("file") MultipartFile file) {
+        String message = "";
+        ItemImage itemImage = new ItemImage();
+        try {
+            itemImageService.storeEdit(id,file);
+
+            message = itemImageService.store(file).getId();
+            ;
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
 
 
 }
