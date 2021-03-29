@@ -28,7 +28,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/futrash/")
+@RequestMapping("/api/foodTrash/user")
 
 public class AuthRestAPIs {
 
@@ -110,7 +110,7 @@ public class AuthRestAPIs {
     }
 
     //edit user test
-    @PutMapping("/users/{id}")
+    @PutMapping("/edit/{id}")
     public void editUser(@PathVariable long id, @RequestBody User userGet) {
         User user= new User();
         user.setName(userGet.getName());
@@ -123,13 +123,13 @@ public class AuthRestAPIs {
     }
 
     //tes delete user
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@RequestHeader("Authorization") String token,@PathVariable long id) {
         userRepository.deleteById(id);
 
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/show/{id}")
     public User getUser(@PathVariable long id) {
         return userRepository
                 .findById(id)

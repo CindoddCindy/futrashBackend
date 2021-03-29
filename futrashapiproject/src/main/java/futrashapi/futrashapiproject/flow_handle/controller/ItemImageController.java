@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @Controller
-@RequestMapping("/api/futrash/item/image")
+@RequestMapping("/api/foodTrash/item/image")
 public class ItemImageController {
 
     @Autowired
@@ -103,13 +103,15 @@ public class ItemImageController {
     public ResponseEntity<Object> deleteImage(@PathVariable String id) {
         return itemImageService.deleteImage(id);
     }
+
     @GetMapping("/image/details/{id}")
     public ItemImage getItemImage(@PathVariable String id) {
         if(itemImageRepository.findById(id).isPresent())
             return itemImageRepository.findById(id).get();
         else return null;
     }
-    @GetMapping("/role/all")
+
+    @GetMapping("/show/all")
     public List<ItemImage> getItemImage() {
         return itemImageRepository.findAll();
     }
