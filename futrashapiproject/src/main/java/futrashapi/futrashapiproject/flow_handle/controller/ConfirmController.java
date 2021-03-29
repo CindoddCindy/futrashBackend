@@ -1,5 +1,6 @@
 package futrashapi.futrashapiproject.flow_handle.controller;
 
+import futrashapi.futrashapiproject.auth.repository.UserRepository;
 import futrashapi.futrashapiproject.flow_handle.exception.ResourceNotFoundException;
 import futrashapi.futrashapiproject.flow_handle.model.Confirm;
 import futrashapi.futrashapiproject.flow_handle.repository.ConfirmRepository;
@@ -20,29 +21,29 @@ public class ConfirmController {
     private ConfirmRepository confirmRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/orders/{orderId}/confirm")
-    public Page<Confirm> getAllConfirmByOrderId(@PathVariable (value = "orderId") Long orderId,
+    @GetMapping("/users/{usersId}/confirm")
+    public Page<Confirm> getAllConfirmByOrderId(@PathVariable (value = "userId") Long userId,
                                                 Pageable pageable) {
-        return confirmRepository.findByOrderId(orderId, pageable);
+        return confirmRepository.findByUserId(userId, pageable);
     }
 
-    @PostMapping("/orders/{orderId}/confirm")
-    public Confirm createConfirm(@PathVariable (value = "orderId") Long orderId,
+    @PostMapping("/users/{userId}/confirm")
+    public Confirm createConfirm(@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Confirm confirm) {
-        return orderRepository.findById(orderId).map(order -> {
-            confirm.setOrder(order);
+        return userRepository.findById(userId).map(user -> {
+            confirm.setUser(user);
             return confirmRepository.save(confirm);
-        }).orElseThrow(() -> new ResourceNotFoundException("OrderId " + orderId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     }
 
-    @PutMapping("/orders/{orderId}/confirm/{confirmId}")
-    public Confirm updateConfirm(@PathVariable (value = "orderId") Long orderId,
+    @PutMapping("/users/{userId}/confirm/{confirmId}")
+    public Confirm updateConfirm(@PathVariable (value = "userId") Long userId,
                                  @PathVariable (value = "confirmId") Long confirmId,
                                  @Valid @RequestBody Confirm confirmRequest) {
-        if(!orderRepository.existsById(orderId)) {
-            throw new ResourceNotFoundException("OrderId " + orderId + " not found");
+        if(!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("UserId " + userId + " not found");
         }
 
         return confirmRepository.findById(confirmId).map(confirm -> {
@@ -52,13 +53,13 @@ public class ConfirmController {
         }).orElseThrow(() -> new ResourceNotFoundException("ConfirmId " + confirmId + "not found"));
     }
 
-    @DeleteMapping("/orders/{orderId}/confirm/{confirmId}")
-    public ResponseEntity<?> deleteConfirm(@PathVariable (value = "orderId") Long orderId,
+    @DeleteMapping("/users/{userId}/confirm/{confirmId}")
+    public ResponseEntity<?> deleteConfirm(@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "confirmId") Long confirmId) {
-        return confirmRepository.findByIdAndOrderId(confirmId, orderId).map(confirm -> {
+        return confirmRepository.findByIdAndUserId(confirmId, userId).map(confirm -> {
             confirmRepository.delete(confirm);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("Confirm not found with id " + confirmId + " and orderId " + orderId));
+        }).orElseThrow(() -> new ResourceNotFoundException("Confirm not found with id " + confirmId + " and orderId " + userId));
     }
 
 

@@ -1,5 +1,6 @@
 package futrashapi.futrashapiproject.flow_handle.controller;
 
+import futrashapi.futrashapiproject.auth.repository.UserRepository;
 import futrashapi.futrashapiproject.flow_handle.exception.ResourceNotFoundException;
 import futrashapi.futrashapiproject.flow_handle.model.Order;
 import futrashapi.futrashapiproject.flow_handle.repository.ItemRepository;
@@ -20,29 +21,29 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/items/{itemId}/orders")
-    public Page<Order> getAllOrderByItemId(@PathVariable (value = "itemId") Long itemId,
+    @GetMapping("/users/{userId}/orders")
+    public Page<Order> getAllOrderByItemId(@PathVariable (value = "userId") Long userId,
                                               Pageable pageable) {
-        return orderRepository.findByItemId(itemId, pageable);
+        return orderRepository.findByUserId(userId, pageable);
     }
 
-    @PostMapping("/items/{itemId}/orders")
-    public Order createOrder(@PathVariable (value = "itemId") Long itemId,
+    @PostMapping("/users/{userId}/orders")
+    public Order createOrder(@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Order order) {
-        return itemRepository.findById(itemId).map(item -> {
-            order.setItem(item);
+        return userRepository.findById(userId).map(user -> {
+            order.setUser(user);
             return orderRepository.save(order);
-        }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     }
 
-    @PutMapping("/items/{itemId}/orders/{orderId}")
-    public Order updateOrder(@PathVariable (value = "itemId") Long itemId,
+    @PutMapping("/users/{userId}/orders/{orderId}")
+    public Order updateOrder(@PathVariable (value = "userId") Long userId,
                                  @PathVariable (value = "orderId") Long orderId,
                                  @Valid @RequestBody Order orderRequest) {
-        if(!itemRepository.existsById(itemId)) {
-            throw new ResourceNotFoundException("ItemId " + itemId + " not found");
+        if(!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("userId " + userId + " not found");
         }
 
         return orderRepository.findById(orderId).map(order -> {
@@ -54,13 +55,13 @@ public class OrderController {
         }).orElseThrow(() -> new ResourceNotFoundException("OrderId " + orderId + "not found"));
     }
 
-    @DeleteMapping("/items/{itemId}/orders/{orderId}")
-    public ResponseEntity<?> deleteOrder(@PathVariable (value = "itemId") Long itemId,
+    @DeleteMapping("/users/{userId}/orders/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "orderId") Long orderId) {
-        return orderRepository.findByIdAndItemId(orderId, itemId).map(order -> {
+        return orderRepository.findByIdAndUserId(orderId, userId).map(order -> {
             orderRepository.delete(order);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + orderId + " and ItemId " + itemId));
+        }).orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + orderId + " and UserId " + userId));
     }
 
 

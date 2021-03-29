@@ -3,6 +3,8 @@ package futrashapi.futrashapiproject.flow_handle.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import futrashapi.futrashapiproject.auth.model.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -22,10 +24,10 @@ public class Confirm extends AuditModel{
     private String catatan_alasan;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Order order;
+    private User user;
 
 
     public Confirm() {
@@ -55,11 +57,11 @@ public class Confirm extends AuditModel{
         this.catatan_alasan = catatan_alasan;
     }
 
-    public Order getOrder() {
-        return order;
+    public User getUser() {
+        return user;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

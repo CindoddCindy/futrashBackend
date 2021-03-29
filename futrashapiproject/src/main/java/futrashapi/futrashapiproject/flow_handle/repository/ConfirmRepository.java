@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 public interface ConfirmRepository extends JpaRepository<Confirm, Long> {
-    Page<Confirm> findByOrderId(Long orderId, Pageable pageable);
-    Optional<Confirm> findByIdAndOrderId(Long id, Long orderId);
+    Page<Confirm> findByUserId(Long userId, Pageable pageable);
+    Optional<Confirm> findByIdAndUserId(Long id, Long userId);
 
 }
