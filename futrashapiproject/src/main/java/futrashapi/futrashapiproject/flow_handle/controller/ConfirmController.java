@@ -49,6 +49,10 @@ public class ConfirmController {
         return confirmRepository.findById(confirmId).map(confirm -> {
             confirm.setTerima_tolak(confirmRequest.getTerima_tolak());
             confirm.setCatatan_alasan(confirmRequest.getCatatan_alasan());
+            confirm.setNama_mitra(confirmRequest.getNama_mitra());
+            confirm.setJenis_makanan(confirmRequest.getJenis_makanan());
+            confirm.setLokasi_mitra(confirmRequest.getLokasi_mitra());
+            confirm.setPhone_mitra(confirmRequest.getPhone_mitra());
             return confirmRepository.save(confirm);
         }).orElseThrow(() -> new ResourceNotFoundException("ConfirmId " + confirmId + "not found"));
     }

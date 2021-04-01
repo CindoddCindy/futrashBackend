@@ -46,6 +46,9 @@ public class Item extends  AuditModel{
     @NotNull
     private String kandungan_kimia;
 
+    @NotNull
+    private String phone_number;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -143,6 +146,13 @@ public class Item extends  AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
 
     public Long getId() {
         return id;

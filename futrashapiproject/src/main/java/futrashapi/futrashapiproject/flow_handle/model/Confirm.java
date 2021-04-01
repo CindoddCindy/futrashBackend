@@ -18,10 +18,34 @@ public class Confirm extends AuditModel{
     private Long id;
 
     @NotNull
+    private String image_url;
+
+    @NotNull
     private String terima_tolak;
 
     @NotNull
     private String catatan_alasan;
+
+    @NotNull
+    private String jenis_makanan;
+
+    @NotNull
+    private String lokasi_customer;
+
+    @NotNull
+    private String nama_customer;
+
+    @NotNull
+    private String phone_customer;
+
+    @NotNull
+    private String lokasi_mitra;
+
+    @NotNull
+    private String nama_mitra;
+
+    @NotNull
+    private String phone_mitra;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -55,6 +79,70 @@ public class Confirm extends AuditModel{
 
     public void setCatatan_alasan(String catatan_alasan) {
         this.catatan_alasan = catatan_alasan;
+    }
+
+    public String getJenis_makanan() {
+        return jenis_makanan;
+    }
+
+    public void setJenis_makanan(String jenis_makanan) {
+        this.jenis_makanan = jenis_makanan;
+    }
+
+    public String getLokasi_customer() {
+        return lokasi_customer;
+    }
+
+    public void setLokasi_customer(String lokasi_customer) {
+        this.lokasi_customer = lokasi_customer;
+    }
+
+    public String getNama_customer() {
+        return nama_customer;
+    }
+
+    public void setNama_customer(String nama_customer) {
+        this.nama_customer = nama_customer;
+    }
+
+    public String getPhone_customer() {
+        return phone_customer;
+    }
+
+    public void setPhone_customer(String phone_customer) {
+        this.phone_customer = phone_customer;
+    }
+
+    public String getLokasi_mitra() {
+        return lokasi_mitra;
+    }
+
+    public void setLokasi_mitra(String lokasi_mitra) {
+        this.lokasi_mitra = lokasi_mitra;
+    }
+
+    public String getNama_mitra() {
+        return nama_mitra;
+    }
+
+    public void setNama_mitra(String nama_mitra) {
+        this.nama_mitra = nama_mitra;
+    }
+
+    public String getPhone_mitra() {
+        return phone_mitra;
+    }
+
+    public void setPhone_mitra(String phone_mitra) {
+        this.phone_mitra = phone_mitra;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public User getUser() {
