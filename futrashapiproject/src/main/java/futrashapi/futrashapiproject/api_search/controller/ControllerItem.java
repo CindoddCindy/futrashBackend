@@ -46,7 +46,7 @@ import static com.pivovarit.function.ThrowingFunction.unchecked;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/api/foodTrash/search")
 public class ControllerItem {
 
 
@@ -90,10 +90,10 @@ public class ControllerItem {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Item>> get(
             @And({
-                    @Spec(path = "manufacturer", params = "manufacturer", spec = Like.class),
-                    @Spec(path = "model", params = "model", spec = Like.class),
-                    @Spec(path = "country", params = "country", spec = In.class),
-                    @Spec(path = "type", params = "type", spec = Like.class),
+                    @Spec(path = "jenis_makanan", params = "jenis_makanan", spec = Like.class),
+                    @Spec(path = "lokasi_makanan", params = "lokasi_makanan", spec = Like.class),
+                    @Spec(path = "nama_toko", params = "nama_toko", spec = In.class),
+                    @Spec(path = "nama_penjual", params = "nama_penjual", spec = Like.class),
                     @Spec(path = "createDate", params = "createDate", spec = Equal.class),
                     @Spec(path = "createDate", params = {"createDateGt", "createDateLt"}, spec = Between.class)
             }) Specification<Item> spec,
