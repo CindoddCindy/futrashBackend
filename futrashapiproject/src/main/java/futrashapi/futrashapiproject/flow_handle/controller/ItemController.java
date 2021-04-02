@@ -22,6 +22,11 @@ public class ItemController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/AllItems")
+    public Page<Item> getAllItems(Pageable pageable) {
+        return itemRepository.findAll(pageable);
+    }
+
     @GetMapping("/users/{userId}/items")
     public Page<Item> getAllItemByUserId(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                              Pageable pageable) {
