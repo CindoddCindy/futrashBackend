@@ -1,18 +1,17 @@
 package futrashapi.futrashapiproject.auth.security.services;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import futrashapi.futrashapiproject.auth.model.User;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserPrinciple implements UserDetails {
+import futrashapi.futrashapiproject.auth.model.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,56 +23,50 @@ public class UserPrinciple implements UserDetails {
 
     private String phone;
 
-
     @JsonIgnore
     private String password;
 
-    private String username;
-
-
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id, String name,
-                         String email,String phone, String password,
-                         Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String name, String email, String phone, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
+        this.name =name;
         this.email = email;
-        this.phone = phone;
+        this.phone=phone;
         this.password = password;
         this.authorities = authorities;
     }
 
-    public static UserPrinciple build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
+    public static UserDetailsImpl build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
 
-        return new UserPrinciple(
+        return new UserDetailsImpl(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
                 user.getPhone(),
                 user.getPassword(),
-                authorities
-        );
+                authorities);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    @Override
-    public String getUsername() {
-        return username;
+    public String getPhone() {
+        return phone;
     }
 
     @Override
@@ -82,8 +75,8 @@ public class UserPrinciple implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+    public String getUsername() {
+        return name;
     }
 
     @Override
@@ -108,10 +101,11 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserPrinciple user = (UserPrinciple) o;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
 }

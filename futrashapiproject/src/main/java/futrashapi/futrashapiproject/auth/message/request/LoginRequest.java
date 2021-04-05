@@ -1,23 +1,21 @@
 package futrashapi.futrashapiproject.auth.message.request;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-public class LoginForm {
-    @NotBlank
-    @Size(min=3, max = 60)
-    private String name;
+public class LoginRequest {
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    private String username;
+
+    @NotBlank
     private String password;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

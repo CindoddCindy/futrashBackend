@@ -1,26 +1,22 @@
 package futrashapi.futrashapiproject.auth.message.request;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
-public class SignUpForm {
+import javax.validation.constraints.*;
 
+public class SignupRequest {
     @NotBlank
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 20)
     private String name;
 
-
     @NotBlank
-    @Size(max = 60)
+    @Size(max = 50)
     @Email
     private String email;
 
     @NotBlank
-    @Size(min = 3, max = 30)
+    @Size(max = 50)
     private String phone;
-
 
     private Set<String> role;
 
