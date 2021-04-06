@@ -69,6 +69,14 @@ public class UserDetailsImpl implements UserDetails {
         return phone;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String getPassword() {
         return password;

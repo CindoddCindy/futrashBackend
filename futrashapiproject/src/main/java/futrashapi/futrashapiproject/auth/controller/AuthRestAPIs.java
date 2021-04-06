@@ -33,7 +33,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("/api/foodTrash/user")
 public class AuthRestAPIs {
@@ -69,7 +70,7 @@ public class AuthRestAPIs {
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
-                userDetails.getUsername(),
+                userDetails.getName(),
                 userDetails.getEmail(),
                 userDetails.getPhone(),
                 roles));
