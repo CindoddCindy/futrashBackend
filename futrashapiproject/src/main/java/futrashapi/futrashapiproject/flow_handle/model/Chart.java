@@ -53,6 +53,10 @@ public class Chart extends AuditModel{
     @NotNull
     private String phone_number;
 
+    @NotNull
+    private String item_date;
+
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -158,7 +162,13 @@ public class Chart extends AuditModel{
         this.kandungan_kimia = kandungan_kimia;
     }
 
+    public String getItem_date() {
+        return item_date;
+    }
 
+    public void setItem_date(String item_date) {
+        this.item_date = item_date;
+    }
 
     public User getUser() {
         return user;

@@ -47,6 +47,13 @@ public class Confirm extends AuditModel{
     @NotNull
     private String phone_mitra;
 
+    @NotNull
+    private String item_date;
+
+    @NotNull
+    private String order_date;
+
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -145,9 +152,27 @@ public class Confirm extends AuditModel{
         this.image_url = image_url;
     }
 
+    public String getItem_date() {
+        return item_date;
+    }
+
+    public void setItem_date(String item_date) {
+        this.item_date = item_date;
+    }
+
+    public String getOrder_date() {
+        return order_date;
+    }
+
+    public void setOrder_date(String order_date) {
+        this.order_date = order_date;
+    }
+
     public User getUser() {
         return user;
     }
+
+
 
     public void setUser(User user) {
         this.user = user;
