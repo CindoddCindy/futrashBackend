@@ -53,6 +53,9 @@ public class Confirm extends AuditModel{
     @NotNull
     private String order_date;
 
+    @NotNull
+    private String shipping_type;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -166,6 +169,15 @@ public class Confirm extends AuditModel{
 
     public void setOrder_date(String order_date) {
         this.order_date = order_date;
+    }
+
+
+    public String getShipping_type() {
+        return shipping_type;
+    }
+
+    public void setShipping_type(String shipping_type) {
+        this.shipping_type = shipping_type;
     }
 
     public User getUser() {
