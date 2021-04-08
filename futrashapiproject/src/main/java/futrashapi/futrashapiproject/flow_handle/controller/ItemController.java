@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/foodTrash/item")
@@ -25,6 +26,13 @@ public class ItemController {
     @GetMapping("/AllItems")
     public Page<Item> getAllItems(Pageable pageable) {
         return itemRepository.findAll(pageable);
+    }
+
+
+    @GetMapping("/showItems")
+    public List<Item> showAllItems() {
+        return itemRepository.findAll();
+
     }
 
     @GetMapping("/users/{userId}/items")
