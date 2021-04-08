@@ -56,6 +56,9 @@ public class Chart extends AuditModel{
     @NotNull
     private String item_date;
 
+    @NotNull
+    private Long id_mitra;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -168,6 +171,14 @@ public class Chart extends AuditModel{
 
     public void setItem_date(String item_date) {
         this.item_date = item_date;
+    }
+
+    public Long getId_mitra() {
+        return id_mitra;
+    }
+
+    public void setId_mitra(Long id_mitra) {
+        this.id_mitra = id_mitra;
     }
 
     public User getUser() {
