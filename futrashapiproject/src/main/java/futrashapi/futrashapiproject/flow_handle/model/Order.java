@@ -75,6 +75,9 @@ public class Order extends AuditModel{
     @NotNull
     private String item_date;
 
+    @NotNull
+    private Long id_buyer;
+
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -230,6 +233,14 @@ public class Order extends AuditModel{
 
     public void setItem_date(String item_date) {
         this.item_date = item_date;
+    }
+
+    public Long getId_buyer() {
+        return id_buyer;
+    }
+
+    public void setId_buyer(Long id_buyer) {
+        this.id_buyer = id_buyer;
     }
 
     public User getUser() {
