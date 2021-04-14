@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,5 +18,6 @@ public interface ChartRepository extends JpaRepository<Chart, Long> {
 
     Page<Chart> findByUserId(Long userId, Pageable pageable);
     Optional<Chart> findByIdAndUserId(Long id, Long userId);
+    
 
 }
