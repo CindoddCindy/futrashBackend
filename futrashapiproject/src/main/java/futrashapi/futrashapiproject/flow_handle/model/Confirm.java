@@ -57,6 +57,9 @@ public class Confirm extends AuditModel{
     @NotNull
     private String shipping_type;
 
+    @NotNull
+    private Long id_order_buyer;
+
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -180,6 +183,14 @@ public class Confirm extends AuditModel{
 
     public void setShipping_type(String shipping_type) {
         this.shipping_type = shipping_type;
+    }
+
+    public Long getId_order_buyer() {
+        return id_order_buyer;
+    }
+
+    public void setId_order_buyer(Long id_order_buyer) {
+        this.id_order_buyer = id_order_buyer;
     }
 
     public User getUser() {
