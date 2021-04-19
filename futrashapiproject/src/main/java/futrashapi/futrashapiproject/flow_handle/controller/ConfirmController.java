@@ -38,8 +38,9 @@ public class ConfirmController {
         }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     }
 
+    //@RequestHeader("Authorization") String token,
     @PutMapping("/users/{userId}/confirm/{confirmId}")
-    public Confirm updateConfirm(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
+    public Confirm updateConfirm(@RequestHeader("Authorization") String token, @PathVariable (value = "userId") Long userId,
                                  @PathVariable (value = "confirmId") Long confirmId,
                                  @Valid @RequestBody Confirm confirmRequest) {
         if(!userRepository.existsById(userId)) {
@@ -57,6 +58,8 @@ public class ConfirmController {
         }).orElseThrow(() -> new ResourceNotFoundException("ConfirmId " + confirmId + "not found"));
     }
 
+
+    //
     @DeleteMapping("/users/{userId}/confirm/{confirmId}")
     public ResponseEntity<?> deleteConfirm(@RequestHeader("Authorization") String token,@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "confirmId") Long confirmId) {
